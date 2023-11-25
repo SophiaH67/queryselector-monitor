@@ -5,11 +5,12 @@
   "author": "Sophia Hage <sophia@sophiah.gay>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "puppeteer": "^21.5.2"
   },
   "scripts": {
     "start": "ts-node src/main.ts",
-    "start:dev": "nodemon --watch 'src/**/*.ts' --ignore ./storage.json"
+    "start:dev": "nodemon --ignore ./storage.json"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
