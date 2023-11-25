@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "ts-node src/main.ts",
-    "start:dev": "nodemon --ignore ./storage.json"
+    "start:dev": "nodemon --ignore ./storage.json",
+    "build": "tsc"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

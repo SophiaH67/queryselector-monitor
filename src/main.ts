@@ -6,9 +6,9 @@ import { checkStock } from "./checkStock.";
 
 const STORAGE_PATH = path.join(__dirname, "..", "storage.json");
 
-const CHECK_URL = process.env.CHECK_URL;
-const CHECK_QUERY = process.env.CHECK_QUERY;
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+const CHECK_URL = process.env.CHECK_URL!;
+const CHECK_QUERY = process.env.CHECK_QUERY!;
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL!;
 
 if (!CHECK_URL) throw new Error("CHECK_URL is not set");
 if (!CHECK_QUERY) throw new Error("CHECK_QUERY is not set");
