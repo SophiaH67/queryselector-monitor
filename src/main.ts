@@ -54,6 +54,7 @@ async function main() {
   const storage = JSON.parse(await fs.readFile(STORAGE_PATH, "utf-8"));
   async function saveStorage() {
     await fs.writeFile(STORAGE_PATH, JSON.stringify(storage));
+    console.log("Saved storage to", STORAGE_PATH);
   }
 
   console.log(
@@ -78,20 +79,15 @@ async function main() {
       await sendDiscordMessage(
         `The item is in stock!\n${CHECK_URL}\n${CHECK_QUERY}`
       );
-
-      // Update storage
-      storage[CHECK_URL] = true;
-      await saveStorage();
     } else if (!wasFound && wasFoundBefore) {
       // Send discord message
       await sendDiscordMessage(
         `Item is no longer in stock.\n${CHECK_URL}\n${CHECK_QUERY}`
       );
-
-      // Update storage
-      storage[CHECK_URL] = false;
-      await saveStorage();
     }
+
+    storage[CHECK_URL] = wasFound;
+    await saveStorage();
   }, 60_000);
 }
 
