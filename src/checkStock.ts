@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import * as fs from "fs/promises";
 
 export async function checkStock(
   url: string,
@@ -23,6 +24,10 @@ export async function checkStock(
       console.warn(`Timed out waiting for ${url} to load.`);
     });
 
+  // Write page content to file for debugging
+  await page.screenshot({ path: "screenshot.png" });
+  await fs.writeFile("page.html", await page.content());
+
   // Check if page failed to load
   const error = await page.$("div.error-container");
   if (error) {
@@ -30,6 +35,7 @@ export async function checkStock(
     console.warn(`Error container found on ${url}.`);
     return null;
   }
+
   // Check url
   const currentUrl = page.url();
   if (currentUrl !== url) {
