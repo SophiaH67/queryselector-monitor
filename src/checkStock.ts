@@ -5,9 +5,10 @@ export async function checkStock(
   querySelector: string,
   timeout = 30_000
 ): Promise<boolean | null> {
+  const proxy = process.env.http_proxy || process.env.HTTP_PROXY;
   const browser = await puppeteer.launch({
     headless: "new",
-    args: ["--no-sandbox"],
+    args: ["--no-sandbox", ...(proxy ? [`--proxy-server=${proxy}`] : [])],
   });
   const page = await browser.newPage();
   await page.goto(url);
