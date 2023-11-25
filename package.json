@@ -1,0 +1,20 @@
+{
+  "name": "queryselector-monitor",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "author": "Sophia Hage <sophia@sophiah.gay>",
+  "license": "MIT",
+  "private": null,
+  "dependencies": {
+    "puppeteer": "^21.5.2"
+  },
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "start:dev": "nodemon --watch 'src/**/*.ts' --ignore ./storage.json"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}
