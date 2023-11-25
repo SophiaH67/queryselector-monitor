@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import * as path from "path";
 import * as fs from "fs/promises";
-import { checkStock } from "./checkStock.";
+import { checkStock } from "./checkStock";
 
 const STORAGE_PATH = path.join(__dirname, "..", "storage.json");
 
