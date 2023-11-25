@@ -7,6 +7,7 @@ export async function checkStock(
 ): Promise<boolean> {
   const browser = await puppeteer.launch({
     headless: "new",
+    args: ["--no-sandbox"],
   });
   const page = await browser.newPage();
   await page.goto(url);
