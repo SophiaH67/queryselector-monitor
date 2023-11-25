@@ -50,6 +50,7 @@ async function main() {
   }
 
   // Read storage file
+  console.log("Reading storage from", STORAGE_PATH);
   const storage = JSON.parse(await fs.readFile(STORAGE_PATH, "utf-8"));
   async function saveStorage() {
     await fs.writeFile(STORAGE_PATH, JSON.stringify(storage));
