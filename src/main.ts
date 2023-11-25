@@ -9,6 +9,7 @@ const STORAGE_PATH = path.join(__dirname, "..", "storage.json");
 const CHECK_URL = process.env.CHECK_URL!;
 const CHECK_QUERY = process.env.CHECK_QUERY!;
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL!;
+const INVERT_CHECK = process.env.INVERT_CHECK === "true";
 
 if (!CHECK_URL) throw new Error("CHECK_URL is not set");
 if (!CHECK_QUERY) throw new Error("CHECK_QUERY is not set");
@@ -61,7 +62,8 @@ async function main() {
   );
 
   setIntervalAsync(async () => {
-    const wasFound = await checkStock(CHECK_URL, CHECK_QUERY);
+    const wasFound =
+      (await checkStock(CHECK_URL, CHECK_QUERY)) !== INVERT_CHECK;
     const wasFoundBefore = storage[CHECK_URL] ?? false;
 
     console.log(
