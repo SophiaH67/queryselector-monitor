@@ -4,7 +4,7 @@ export async function checkStock(
   url: string,
   querySelector: string,
   timeout = 30_000
-): Promise<boolean> {
+): Promise<boolean | null> {
   const browser = await puppeteer.launch({
     headless: "new",
     args: ["--no-sandbox"],
@@ -21,6 +21,21 @@ export async function checkStock(
     .catch(() => {
       console.warn(`Timed out waiting for ${url} to load.`);
     });
+
+  // Check if page failed to load
+  const error = await page.$("div.error-container");
+  if (error) {
+    await browser.close();
+    console.warn(`Error container found on ${url}.`);
+    return null;
+  }
+  // Check url
+  const currentUrl = page.url();
+  if (currentUrl !== url) {
+    await browser.close();
+    console.warn(`Redirected to ${currentUrl} from ${url}.`);
+    return null;
+  }
 
   const element = await page.$(querySelector);
 
