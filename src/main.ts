@@ -8,6 +8,7 @@ const STORAGE_PATH = path.join(__dirname, "..", "storage.json");
 
 const CHECK_URL = process.env.CHECK_URL!;
 const CHECK_QUERY = process.env.CHECK_QUERY!;
+const CHECK_INTERVAL = Number(process.env.CHECK_INTERVAL ?? 60_000);
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL!;
 const INVERT_CHECK = process.env.INVERT_CHECK === "true";
 
@@ -88,7 +89,7 @@ async function main() {
 
     storage[CHECK_URL] = wasFound;
     await saveStorage();
-  }, 60_000);
+  }, CHECK_INTERVAL);
 }
 
 main();
