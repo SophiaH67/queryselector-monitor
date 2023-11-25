@@ -4,7 +4,6 @@
   "main": "src/main.ts",
   "author": "Sophia Hage <sophia@sophiah.gay>",
   "license": "MIT",
-  "private": null,
   "dependencies": {
     "puppeteer": "^21.5.2"
   },
