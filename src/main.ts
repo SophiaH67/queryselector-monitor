@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import * as path from "path";
 import * as fs from "fs/promises";
 import { checkStock } from "./checkStock.";
@@ -30,7 +32,8 @@ function setIntervalAsync(callback: () => Promise<void>, ms: number) {
     });
   };
 
-  setTimeout(interval, ms);
+  // Instantly call the callback
+  interval();
 }
 
 async function main() {
@@ -51,9 +54,21 @@ async function main() {
     await fs.writeFile(STORAGE_PATH, JSON.stringify(storage));
   }
 
+  console.log(
+    `Starting to check ${CHECK_URL} every minute for query ${JSON.stringify(
+      CHECK_QUERY
+    )}.`
+  );
+
   setIntervalAsync(async () => {
     const wasFound = await checkStock(CHECK_URL, CHECK_QUERY);
     const wasFoundBefore = storage[CHECK_URL] ?? false;
+
+    console.log(
+      `Item is ${wasFound ? "in" : "not in"} stock. Was ${
+        wasFoundBefore ? "in" : "not in"
+      } stock before.`
+    );
 
     if (wasFound && !wasFoundBefore) {
       // Send discord message
